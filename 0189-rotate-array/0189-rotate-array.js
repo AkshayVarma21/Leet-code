@@ -10,8 +10,20 @@ var rotate = function(nums, k) {
     if(k > arrLen){
         k = k % arrLen;
     }
+   rev(nums, 0, arrLen-1)
+    rev(nums, 0, k-1)
+    rev(nums, k, arrLen-1)
     
-    const rotated = nums.splice(arrLen-k, k)
-    
-    nums.unshift(...rotated)
 };
+
+const rev = (nums, left, right) =>{
+    let temp;
+    while(left< right){
+        temp = nums[left]
+        nums[left] = nums[right]
+        nums[right] = temp
+        left++
+        right--
+    }
+    return nums
+}

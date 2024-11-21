@@ -25,5 +25,4 @@ const rev = (nums, left, right) =>{
         left++
         right--
     }
-    return nums
 }

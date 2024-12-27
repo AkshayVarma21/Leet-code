@@ -4,26 +4,32 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-    if(s.length !== t.length)
-        return false;
-        
-    const count={}
-
-    for(let i=0;i<s.length;i++){
-        if(!count[s[i]]){
-           count[s[i]]=0;
+    if(s.length !== t.length) return false;
+    
+    const sMap = new Map()
+    const tMap = new Map()
+    
+    for(let i=0 ;i<s.length;i++){
+        if(sMap.get(s[i])){
+            sMap.set(s[i],sMap.get(s[i])+1)
+        }else{
+            sMap.set(s[i],1)
         }
-        if(!count[t[i]]){
-           count[t[i]]=0;
+        if(tMap.get(t[i])){
+            tMap.set(t[i],tMap.get(t[i])+1)
+        }else{
+            tMap.set(t[i],1)
         }
-        count[s[i]]++;
-        count[t[i]]--;
     }
-    let status =true;
-    Object.values(count).forEach(item=>{
-        if(item !==0){
-            status =  false;
+     let isValid = true;  
+    for(let i=0; i<s.length;i++){
+        
+        if(sMap.get(s[i]) !== tMap.get(s[i])){
+            isValid = false;
+        }else 
+        if(tMap.get(t[i]) !== sMap.get(t[i])){
+            isValid = false;
         }
-    })
-    return status;
+    }
+        return isValid
 };

@@ -4,32 +4,18 @@
  * @return {boolean}
  */
 var isAnagram = function(s, t) {
-    if(s.length !== t.length) return false;
+    if (s.length !== t.length) return false; 
     
-    const sMap = new Map()
-    const tMap = new Map()
+    const map = new Map();
     
-    for(let i=0 ;i<s.length;i++){
-        if(sMap.get(s[i])){
-            sMap.set(s[i],sMap.get(s[i])+1)
-        }else{
-            sMap.set(s[i],1)
-        }
-        if(tMap.get(t[i])){
-            tMap.set(t[i],tMap.get(t[i])+1)
-        }else{
-            tMap.set(t[i],1)
-        }
+    for (let i = 0; i < s.length; i++) {
+        map.set(s[i], (map.get(s[i]) || 0) + 1); 
+        map.set(t[i], (map.get(t[i]) || 0) - 1); 
     }
-     let isValid = true;  
-    for(let i=0; i<s.length;i++){
-        
-        if(sMap.get(s[i]) !== tMap.get(s[i])){
-            isValid = false;
-        }else 
-        if(tMap.get(t[i]) !== sMap.get(t[i])){
-            isValid = false;
-        }
+    
+    for (let count of map.values()) {
+        if (count !== 0) return false;
     }
-        return isValid
+    
+    return true;
 };
